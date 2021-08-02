@@ -2,9 +2,13 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
@@ -36,8 +40,8 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("add new"));
     }
 
-    public void selectContactItem() {
-        click(By.name("selected[]"));
+    public void selectContactItem(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 
     public void deleteContact() {
@@ -48,8 +52,8 @@ public class ContactHelper extends HelperBase {
         wd.switchTo().alert().accept();
     }
 
-    public void editContact() {
-        click(By.xpath("//img[@alt='Edit']"));
+    public void editContact(int index) {
+        wd.findElements(By.name("entry")).get(index).findElement(By.xpath("//img[@alt='Edit']")).click();
     }
 
     public void updateContact() {
@@ -69,5 +73,22 @@ public class ContactHelper extends HelperBase {
 
     public boolean isThereAContact() {
         return isElementPresent(By.name("selected[]"));
+    }
+
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<ContactData>();
+        List<WebElement> elements = wd.findElements(By.name("entry"));
+
+        for (WebElement element : elements) {
+            List<WebElement> columns = element.findElements(By.tagName("td"));
+            int id = Integer.parseInt(columns.get(0).findElement(By.name("selected[]")).getAttribute("value"));
+            String lastName = columns.get(1).getText();
+            String firstName = columns.get(2).getText();
+
+            ContactData contact = new ContactData(id, firstName, lastName, null, null, null, null, null, null);
+            contacts.add(contact);
+        }
+
+        return contacts;
     }
 }
