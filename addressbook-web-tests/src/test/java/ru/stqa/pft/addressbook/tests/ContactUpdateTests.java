@@ -31,6 +31,7 @@ public class ContactUpdateTests extends TestBase {
         Contacts before = app.contact().all();
         ContactData updateContact = before.iterator().next();
         ContactData contact = new ContactData()
+                .withId(updateContact.getId())
                 .withFirstName("Тест1")
                 .withLastName("Тестовый1")
                 .withAddress("Проспект теста 25")
@@ -41,8 +42,8 @@ public class ContactUpdateTests extends TestBase {
                 .withGroup("test1");
         app.contact().modify(contact);
         app.goTo().returnToHomePage();
+        assertEquals(app.contact().count(), before.size());
         Contacts after = app.contact().all();
-        assertEquals(after.size(), before.size());
         assertThat(after, equalTo(before.withOut(updateContact).withAdded(contact)));
     }
 }

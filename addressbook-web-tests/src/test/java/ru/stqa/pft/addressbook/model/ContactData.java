@@ -9,16 +9,56 @@ public class ContactData {
     private String address;
     private String homeNumber;
     private String mobileNumber;
+    private String workNumber;
     private String email;
     private String additionalEmail;
+    private String otherAdditionalEmail;
     private String group;
+    private String allNumbers;
+    private String allEmails;
+
+    public String getAllEmails() {
+        return allEmails;
+    }
+
+    public String getAllNumbers() {
+        return allNumbers;
+    }
 
     public int getId() {
         return id;
     }
 
+    public String getWorkNumber() {
+        return workNumber;
+    }
+
+    public String getOtherAdditionalEmail() {
+        return otherAdditionalEmail;
+    }
+
+    public ContactData withAllEmails(String allEmails) {
+        this.allEmails = allEmails;
+        return this;
+    }
+
+    public ContactData withOtherAdditionalEmail(String otherAdditionalEmail) {
+        this.otherAdditionalEmail = otherAdditionalEmail;
+        return this;
+    }
+
+    public ContactData withWorkNumber(String workNumber) {
+        this.workNumber = workNumber;
+        return this;
+    }
+
     public ContactData withId(int id) {
         this.id = id;
+        return this;
+    }
+
+    public ContactData withAllNumbers(String allNumbers) {
+        this.allNumbers = allNumbers;
         return this;
     }
 
