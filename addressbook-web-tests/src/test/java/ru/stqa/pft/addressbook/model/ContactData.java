@@ -1,21 +1,38 @@
 package ru.stqa.pft.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
+import java.io.File;
 import java.util.Objects;
 
+@XStreamAlias("contact")
 public class ContactData {
+    @XStreamOmitField
     private int id = Integer.MAX_VALUE;
+    @Expose
     private String firstName;
+    @Expose
     private String lastName;
+    @Expose
     private String address;
     private String homeNumber;
+    @Expose
     private String mobileNumber;
     private String workNumber;
     private String email;
     private String additionalEmail;
     private String otherAdditionalEmail;
+    @Expose
     private String group;
     private String allNumbers;
     private String allEmails;
+    private File photo;
+
+    public File getPhoto() {
+        return photo;
+    }
 
     public String getAllEmails() {
         return allEmails;
@@ -35,6 +52,11 @@ public class ContactData {
 
     public String getOtherAdditionalEmail() {
         return otherAdditionalEmail;
+    }
+
+    public ContactData withPhoto(File photo) {
+        this.photo = photo;
+        return this;
     }
 
     public ContactData withAllEmails(String allEmails) {
@@ -148,11 +170,11 @@ public class ContactData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactData that = (ContactData) o;
-        return Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName);
+        return id == that.id && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName);
+        return Objects.hash(id, firstName, lastName);
     }
 }

@@ -1,0 +1,23 @@
+[
+  {
+    "firstName": "name 0",
+    "lastName": "lastName 0",
+    "address": "address 0",
+    "mobileNumber": "89131231120",
+    "group": "test1"
+  },
+  {
+    "firstName": "name 1",
+    "lastName": "lastName 1",
+    "address": "address 1",
+    "mobileNumber": "89131231121",
+    "group": "test1"
+  },
+  {
+    "firstName": "name 2",
+    "lastName": "lastName 2",
+    "address": "address 2",
+    "mobileNumber": "89131231122",
+    "group": "test1"
+  }
+]
