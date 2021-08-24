@@ -7,13 +7,16 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
+import java.io.File;
+
 import static org.testng.Assert.assertEquals;
 
 public class ContactDeletionTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        if (app.contact().all().size() == 0) {
+        File photo = new File("src/test/resources/cat.png");
+        if (app.db().contacts().size() == 0) {
             app.contact().create(new ContactData()
                     .withFirstName("Тест")
                     .withLastName("Тестовый")
@@ -22,18 +25,20 @@ public class ContactDeletionTests extends TestBase {
                     .withMobileNumber("89131234567")
                     .withEmail("test@test.ru")
                     .withAdditionalEmail("test1@test.ru")
-                    .withGroup("test1"));
+                    .withGroup("test1")
+                    .withPhoto(photo));
         }
     }
 
     @Test
     public void testContactDeletion() {
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
+        File photo = new File("src/test/resources/cat.png");
         ContactData deletedContact = before.iterator().next();
-        app.contact().delete(deletedContact);
+        app.contact().delete(deletedContact.withPhoto(photo));
         app.goTo().returnToHomePageByNavigationBar();
         assertEquals(app.contact().count(), before.size() - 1);
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.withOut(deletedContact)));
     }
 }
