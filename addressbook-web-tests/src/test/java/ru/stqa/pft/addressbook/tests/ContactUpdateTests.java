@@ -25,7 +25,6 @@ public class ContactUpdateTests extends TestBase {
                     .withMobileNumber("89131234567")
                     .withEmail("test@test.ru")
                     .withAdditionalEmail("test1@test.ru")
-                    .withGroup("test1")
                     .withPhoto(photo));
         }
     }
@@ -44,12 +43,12 @@ public class ContactUpdateTests extends TestBase {
                 .withMobileNumber("89131234567")
                 .withEmail("test@test.ru")
                 .withAdditionalEmail("test1@test.ru")
-                .withGroup("test1")
                 .withPhoto(photo);
         app.contact().modify(contact);
         app.goTo().returnToHomePage();
         assertEquals(app.contact().count(), before.size());
         Contacts after = app.db().contacts();
         assertThat(after, equalTo(before.withOut(updateContact).withAdded(contact)));
+        verifyContactListInUI();
     }
 }

@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.List;
 
@@ -31,10 +32,29 @@ public class ContactHelper extends HelperBase {
         attach(By.name("photo"), contactData.getPhoto());
 
         if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            if (contactData.getGroups().size() > 0) {
+                Assert.assertEquals(contactData.getGroups().size(), 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+            }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
+    }
+
+    public void selectToGroupByValue(String value) {
+        new Select(wd.findElement(By.name("to_group"))).selectByValue(value);
+    }
+
+    public void selectFilterGroupByValue(String value) {
+        new Select(wd.findElement(By.name("group"))).selectByValue(value);
+    }
+
+    public void addToGroup() {
+        click(By.name("add"));
+    }
+
+    public void removeFromGroup() {
+        click(By.name("remove"));
     }
 
     public void initContactCreation() {
@@ -89,6 +109,18 @@ public class ContactHelper extends HelperBase {
         fillContactForm(contact, false);
         updateContact();
         contactCache = null;
+    }
+
+    public void addContactToGroup(ContactData contact, GroupData group) {
+        selectContactItemById(contact.getId());
+        selectToGroupByValue(String.valueOf(group.getId()));
+        addToGroup();
+    }
+
+    public void removeContactFromGroup(ContactData contact, GroupData group) {
+        selectFilterGroupByValue(String.valueOf(group.getId()));
+        selectContactItemById(contact.getId());
+        removeFromGroup();
     }
 
     public boolean isThereAContact() {

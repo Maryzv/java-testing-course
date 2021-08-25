@@ -71,7 +71,7 @@ public class ContactDataGenerator {
     private void saveAsCsv(List<ContactData> contacts, File file) throws IOException {
         try (Writer writer = new FileWriter(file)) {
             for (ContactData contact : contacts) {
-                writer.write(String.format("%s;%s;%s;%s;%s\n", contact.getFirstName(), contact.getLastName(), contact.getAddress(), contact.getMobileNumber(), contact.getGroup()));
+                writer.write(String.format("%s;%s;%s;%s\n", contact.getFirstName(), contact.getLastName(), contact.getAddress(), contact.getMobileNumber()));
             }
         }
     }
@@ -84,8 +84,7 @@ public class ContactDataGenerator {
                     .withFirstName(String.format("name %s", i))
                     .withLastName(String.format("lastName %s", i))
                     .withAddress(String.format("address %s", i))
-                    .withMobileNumber(String.format("8913123112%s", i))
-                    .withGroup("test1"));
+                    .withMobileNumber(String.format("8913123112%s", i)));
         }
 
         return contacts;

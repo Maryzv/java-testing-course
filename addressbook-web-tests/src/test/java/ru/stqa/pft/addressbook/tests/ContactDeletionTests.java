@@ -25,7 +25,6 @@ public class ContactDeletionTests extends TestBase {
                     .withMobileNumber("89131234567")
                     .withEmail("test@test.ru")
                     .withAdditionalEmail("test1@test.ru")
-                    .withGroup("test1")
                     .withPhoto(photo));
         }
     }
@@ -40,5 +39,6 @@ public class ContactDeletionTests extends TestBase {
         assertEquals(app.contact().count(), before.size() - 1);
         Contacts after = app.db().contacts();
         MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.withOut(deletedContact)));
+        verifyContactListInUI();
     }
 }
