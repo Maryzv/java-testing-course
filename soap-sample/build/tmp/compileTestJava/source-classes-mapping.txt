@@ -1,0 +1,4 @@
+ru/stqa/pft/soap/GeoIp.java
+ ru.stqa.pft.soap.GeoIp
+ru/stqa/pft/soap/GeoIpServiceTests.java
+ ru.stqa.pft.soap.GeoIpServiceTests

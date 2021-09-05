@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.lanwen.verbalregex.VerbalExpression;
 import ru.stqa.pft.mantis.model.MailMessage;
 
+import javax.xml.rpc.ServiceException;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,7 +20,12 @@ public class ChangePasswordTests extends TestBase{
     }
 
     @Test
-    public void testChangePassword() throws IOException {
+    public void testChangePassword() throws IOException, ServiceException {
+
+        // Допустим у нас есть задача с id = 2, где описан баг, связанный с этим тестом.
+        // Данный метод проверит, закрыта ли задача и нужно ли запускать тест.
+        skipIfNotFixed(2);
+
         app.login().login("administrator", "root");
         app.settings().goToSettings();
         app.settings().selectUserManagementTab();
