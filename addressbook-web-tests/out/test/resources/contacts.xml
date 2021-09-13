@@ -1,0 +1,14 @@
+<list>
+  <contact>
+    <firstName>name 0</firstName>
+    <lastName>lastName 0</lastName>
+    <address>address 0</address>
+    <mobileNumber>89131231120</mobileNumber>
+  </contact>
+  <contact>
+    <firstName>name 1</firstName>
+    <lastName>lastName 1</lastName>
+    <address>address 1</address>
+    <mobileNumber>89131231121</mobileNumber>
+  </contact>
+</list>
